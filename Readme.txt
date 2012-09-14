@@ -6,16 +6,16 @@ Arduino to Cosm and back
 
 How to use the example
 ---
- -Create a Cosm feed and enter Feed_ID, Cosm API_KEY and MACAddress in the code.
- -Run Android code an check that you get an IP-address and that the values are written to Cosm.
- -Change value on datastream 3 and check that Arduino reads and resets the value.
- -This code reads and writes data from a Cosm feed, it uses 6 datastreams on Cosm 
- -Datastream 0 counts and writes number of successful updates from Arduino to Cosm
- -Datastream 1 counts number of failure while updating Cosm from Arduino 
- -Datastream 2 is written from Arduino to Cosm and used for sending Arduino status to Cosm 
- -Datastream 3 is read by Arduino from Cosm and is intended to use for sending commands from Cosm to Arduino
- -Datastream 4 is written from Arduino to Cosm and used for sending sensor data to Cosm
- -Datastream 5 is written from Arduino to Cosm and used for sending sensor data to Cosm
+ *Create a Cosm feed and enter Feed_ID, Cosm API_KEY and MACAddress in the code.
+ *Run Android code an check that you get an IP-address and that the values are written to Cosm.
+ *Change value on datastream 3 and check that Arduino reads and resets the value.
+ *This code reads and writes data from a Cosm feed, it uses 6 datastreams on Cosm 
+ *Datastream 0 counts and writes number of successful updates from Arduino to Cosm
+ *Datastream 1 counts number of failure while updating Cosm from Arduino 
+ *Datastream 2 is written from Arduino to Cosm and used for sending Arduino status to Cosm 
+ *Datastream 3 is read by Arduino from Cosm and is intended to use for sending commands from Cosm to Arduino
+ *Datastream 4 is written from Arduino to Cosm and used for sending sensor data to Cosm
+ *Datastream 5 is written from Arduino to Cosm and used for sending sensor data to Cosm
 
  Tested with Arduino UNO,Duemillanove
   This code, is tested with the official Arduino Ethernet shield.
