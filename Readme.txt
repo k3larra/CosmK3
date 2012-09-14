@@ -1,19 +1,13 @@
 Arduino to Cosm and back
-
- 
    CosmK3 - Library for connection arduino to cosm.
    Created by Lars Holmberg, september, 2012.
    Released into the public domain.
-
-
 ---
 How to use the example
  Create a Cosm feed and enter Feed_ID, Cosm API_KEY and MACAddress in the code.
  Run Android code an check that you get an IP-address and that the values are written to Cosm.
  Change value on datastream 3 and check that Arduino reads and resets the value.
-
 ---
-
  This code reads and writes data from a Cosm feed, it uses 6 datastreams on Cosm 
  Datastream 0 counts and writes number of successful updates from Arduino to Cosm
  Datastream 1 counts number of failure while updating Cosm from Arduino 
@@ -22,13 +16,10 @@ How to use the example
  Datastream 4 is written from Arduino to Cosm and used for sending sensor data to Cosm
  Datastream 5 is written from Arduino to Cosm and used for sending sensor data to Cosm
 ---
-
  Tested with Arduino UNO,Duemillanove
   This code, is tested with the official Arduino Ethernet shield.
  * v1.o rewrote most of Cosm functions cleand out unesesary code ad converted to library
 ---
-
-
 Implemented Methods
   Constructors
   CosmK3(char cosmApiKey[], uint32_t cosmFeedID, byte arduinoMAC[] ); 
@@ -48,7 +39,6 @@ Implemented Methods
     void sendValueToCosmStream5(int value);
     void sendValueToCosmStream6(int value);
     void setDebug(boolean b);
-
 ---
 Bugs:
 Not stable for more than 6 - 12 hours....
