@@ -7,8 +7,11 @@ Arduino to Cosm and back
 How to use the example
 ---
  * Create a Cosm feed and enter Feed_ID, Cosm API_KEY and MACAddress in the code.
- * Run Android code an check that you get an IP-address and that the values are written to Cosm.
- * Change value on datastream 3 and check that Arduino reads and resets the value.
+ * Run Android code and check via Serial Monitor that you get an IP-address and that the values are written to Cosm.
+ * Change value on datastream 3 on COSM and check that Arduino reads and resets the value.
+
+About the program
+---
  * This code reads and writes data from a Cosm feed, it uses 6 datastreams on Cosm 
  * Datastream 0 counts and writes number of successful updates from Arduino to Cosm
  * Datastream 1 counts number of failure while updating Cosm from Arduino 
