@@ -9,17 +9,17 @@
  
 //Your cosm ApiKey and feed ID(cosm.com)
 char cosmApiKey[]  = "XXXX";
-long feedID = 00000;      //Cosm Feed ID
+long feedID = ====;      //Cosm Feed ID
 
 //Your own Arduino MAC-address (you find it on a sticker on your TCP/IP shield)
-byte mac[] = {0x90, 0xA2, 0xDA, 0x00, 0x9E, 0xBD };
+byte mac[] = {0x90, 0xA2, 0xDA, 0x00, 0x66, 0x66 };
 
 //Instansiate the client
 CosmK3 cosmClient = CosmK3(cosmApiKey,feedID,mac);
 
-//Take it cool with sensor read
+//Take it cool (no need to call cosm to often)
 long previousMillis = 0;    
-long interval = 4000;   
+long interval = 1000;   
 
 void setup(){
   Serial.begin(57600);
@@ -28,28 +28,26 @@ void setup(){
   cosmClient.setupEthernet();
   Serial.println ("Local Arduino IPaddress");
   Serial.println (cosmClient.getDynamicIP());
+  //Activate debugging
+  //cosmClient.setDebug(true);
 }
 
 void loop(){
-  //This reads new commands from stream3. Any value greater then 0 is a new command (Differs from last reading);
-  //ClearCommandFromCosm resets the command on Cosm to 0;
-  if (cosmClient.getCommandFromCosmStream3() > 0){
-      Serial.print ("New command from Cosm: ");
-      Serial.println(cosmClient.getCommandFromCosmStream3());
-      cosmClient.clearCommandFromCosm();
-  }
-  
-  //Send data either as int or float
     unsigned long currentMillis = millis();
    if(currentMillis - previousMillis > interval) {
       previousMillis = currentMillis;   
+      //This reads new commands from stream3. Any value greater then 0 is a new command (Differs from last reading);
+      //THE COMMAND IS ALWAYS RESET TO 0 after reading
+      if (cosmClient.getCommandFromCosmStream3() > 0){
+          Serial.print ("Command from Cosm: ");
+          Serial.println(cosmClient.getCommandFromCosmStream3());
+      }
       //Send data either as int or float
       cosmClient.sendStatusToCosmStream2(3);
       cosmClient.sendValueToCosmStream4((double)random(100)/100);
       cosmClient.sendValueToCosmStream5((int)random(1000));
       cosmClient.sendValueToCosmStream6(3.14145);
+      //Send and receive updates Cosm every 5th second;
+      cosmClient.readAndWrite();
    }
-  
-  //Send and receive updates Cosm every 10th second;
-  cosmClient.readAndWrite();
 }

@@ -3,7 +3,6 @@
 #include "CosmK3.h"
 #include <SPI.h>
 
-int _commandFromCosm=0;
 int _arduinoStatus=0;
 String _valueToCosmStream4 = "0.00";
 String _valueToCosmStream5 = "0.00";
@@ -13,6 +12,7 @@ EthernetClient _cosmclient;
 //char *_cosmserver = "api.cosm.com";
 const byte _cosmserver[] = { 173,203,98,29 };
 //Variable declarations for cosm
+boolean _clearCommandFromCosm = false;
 boolean debug = false; 
 boolean debugVerbose = false;
 char *found;
@@ -20,15 +20,15 @@ char buff[64];
 int pointer = 0;
 unsigned int successes = 1;
 unsigned int failures = 0;
-unsigned int maxSuccesses = 10000;
+unsigned int maxSuccesses = 5000;
 boolean ready_to_update = true;
 boolean reading_pachube = false;
 boolean request_pause = false;
 unsigned long last_connect = 0;
 unsigned int content_length = 0;
 unsigned long connection_duration =0;
-int commandToExecute = 200;
-unsigned int last_command; //Tracks new commands
+int commandToExecute = 0;
+unsigned int last_command = 0; //Tracks new commands
 unsigned int command_tail = strlen("HTTP/1.1 200 OK")+2; //
 
 CosmK3::CosmK3(char cosmApiKey[], uint32_t cosmFeedID, byte arduinoMAC[] )
@@ -108,8 +108,7 @@ void CosmK3::readAndWrite(){
       //sprintf(cosm_data,"%d,%d,%d,,4,5,6",successes,failures,statusOfBoard);
       //Data
       char data[32];
-      sprintf(data,"%d,%d,%d,%d,",successes,failures,_arduinoStatus,_commandFromCosm);
-      //String string_to_send = data + ","+ _valueToCosmStream4 + ","+ _valueToCosmStream5 +"," + _valueToCosmStream6 ;
+      sprintf(data,"%d,%d,%d,%d,",successes,failures,_arduinoStatus,0);
       String string_to_send = data;
       string_to_send +=_valueToCosmStream4;
       string_to_send += ",";
@@ -209,13 +208,11 @@ void CosmK3::readAndWrite(){
         {
           if (i==3){ //Datastream  with id3 is the one that contains the
               commandToExecute = (int)atof(pch);;
-              if (last_command != commandToExecute){ //is it a new command
-                _commandFromCosm = commandToExecute;
+              if (last_command != commandToExecute&&commandToExecute>0){ //is it a new command
                 last_command = commandToExecute;
-              }else {
-                _commandFromCosm = 0; 
+              }else{
+                commandToExecute = 0;
               }
-             
           }   
           pch = strtok (NULL, ","); 
           i++;
@@ -225,7 +222,7 @@ void CosmK3::readAndWrite(){
       //Did Upload work then we received a line with "HTTP/1.1 200 OK"
       if ((found != 0)&&(pointer == command_tail)){ //Did the upload work?
           ++successes;
-          if (successes>maxSuccesses){
+             if (successes>maxSuccesses){
              successes = 0;
              Ethernet.maintain();//renews IP
           } 
@@ -265,12 +262,9 @@ void CosmK3::clean_buffer() {
 
 
 int CosmK3::getCommandFromCosmStream3(){
- return _commandFromCosm;
+ return commandToExecute;
 }
 
-void CosmK3::clearCommandFromCosm(){
-    _commandFromCosm = 0;
-}
 
 void CosmK3::sendStatusToCosmStream2(int arduinoStatus){
     _arduinoStatus = arduinoStatus;

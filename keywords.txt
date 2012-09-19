@@ -5,7 +5,6 @@ readAndWrite	KEYWORD2
 setUpdateInterval	KEYWORD2
 sendStatusToCosmStream2	KEYWORD2
 getCommandFromCosmStream3	KEYWORD2
-clearCommandFromCosm	KEYWORD2
 sendValueToCosmStream4	KEYWORD2
 sendValueToCosmStream5	KEYWORD2
 sendValueToCosmStream6	KEYWORD2

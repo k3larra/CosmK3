@@ -1,4 +1,4 @@
-Arduino to Cosm and back
+Arduino to Cosm and back versin 1.1
 ---
    CosmK3 - Library for connection arduino to cosm.
    Created by Lars Holmberg, september, 2012.
@@ -16,13 +16,15 @@ About the program
  * Datastream 0 counts and writes number of successful updates from Arduino to Cosm
  * Datastream 1 counts number of failure while updating Cosm from Arduino 
  * Datastream 2 is written from Arduino to Cosm and used for sending Arduino status to Cosm 
- * Datastream 3 is read by Arduino from Cosm and is intended to use for sending commands from Cosm to Arduino
+ * Datastream 3 is read by Arduino from Cosm and is intended to use for sending commands from Cosm to Arduino, The command is reset on cosm i every reading
  * Datastream 4 is written from Arduino to Cosm and used for sending sensor data to Cosm
  * Datastream 5 is written from Arduino to Cosm and used for sending sensor data to Cosm
 
- Tested with Arduino UNO,Duemillanove
+ Tested with Arduino UNO,Duemillanove and Arduino 1.0.1
   This code, is tested with the official Arduino Ethernet shield.
- v1.0 rewrote most of Cosm functions cleand out unesesary code ad converted to library
+ v1.1 rewrote reading command so it always clears commands (sets to 0) every time its read from cosm.
+	reading intervall changed to 5 seconds.	 
+v1.0 rewrote most of Cosm functions cleand out unesesary code ad converted to library
 
 Implemented Methods
 ---

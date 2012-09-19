@@ -22,7 +22,6 @@ class CosmK3
     void setUpdateInterval(unsigned long seconds);
     void sendStatusToCosmStream2(int arduinoStatus);
     int getCommandFromCosmStream3();
-    void clearCommandFromCosm();
     //float
     void sendValueToCosmStream4(double value);
     void sendValueToCosmStream5(double value);
