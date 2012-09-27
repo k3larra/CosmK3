@@ -20,7 +20,7 @@ char buff[64];
 int pointer = 0;
 unsigned int successes = 1;
 unsigned int failures = 0;
-unsigned int maxSuccesses = 5000;
+unsigned int maxSuccesses = 10000;
 boolean ready_to_update = true;
 boolean reading_pachube = false;
 boolean request_pause = false;
@@ -65,7 +65,9 @@ IPAddress CosmK3::getDynamicIP(){
 }
 
 void CosmK3::setUpdateInterval(unsigned long seconds){
-    _updateInterval = seconds*1000;
+//  if ((seconds < 6000) && (seconds >0)){
+//    _updateInterval = seconds*1000;
+//  }
 }
 
 void CosmK3::readAndWrite(){

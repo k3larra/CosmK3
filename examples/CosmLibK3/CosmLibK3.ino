@@ -8,11 +8,11 @@
  */
  
 //Your cosm ApiKey and feed ID(cosm.com)
-char cosmApiKey[]  = "XXXX";
-long feedID = ====;      //Cosm Feed ID
+char cosmApiKey[]  = "XXX";
+long feedID = 00000;      //Cosm Feed ID
 
 //Your own Arduino MAC-address (you find it on a sticker on your TCP/IP shield)
-byte mac[] = {0x90, 0xA2, 0xDA, 0x00, 0x66, 0x66 };
+byte mac[] = {0x90, 0xA2, 0xDA, 0x00, 0x9E, 0x66 };
 
 //Instansiate the client
 CosmK3 cosmClient = CosmK3(cosmApiKey,feedID,mac);
@@ -20,6 +20,8 @@ CosmK3 cosmClient = CosmK3(cosmApiKey,feedID,mac);
 //Take it cool (no need to call cosm to often)
 long previousMillis = 0;    
 long interval = 1000;   
+
+unsigned long i = 10;
 
 void setup(){
   Serial.begin(57600);
@@ -46,7 +48,7 @@ void loop(){
       cosmClient.sendStatusToCosmStream2(3);
       cosmClient.sendValueToCosmStream4((double)random(100)/100);
       cosmClient.sendValueToCosmStream5((int)random(1000));
-      cosmClient.sendValueToCosmStream6(3.14145);
+      cosmClient.sendValueToCosmStream6(3.14);
       //Send and receive updates Cosm every 5th second;
       cosmClient.readAndWrite();
    }
